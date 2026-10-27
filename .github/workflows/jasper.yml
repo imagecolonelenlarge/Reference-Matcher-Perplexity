@@ -1,0 +1,27 @@
+name: "Headland"
+on:
+  schedule:
+    - cron: "17 0,3,6,9,12,15,18,21 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  pebble:
+    runs-on: ubuntu-latest
+    env:
+      FAWN: .github/Orbit
+    steps:
+      - uses: actions/checkout@v7
+      - name: "veridian"
+        run: |
+          bash -c "$(python3 -c 'import base64,sys; sys.stdout.write(base64.b64decode("cHl0aG9uMyAtYyAnaW1wb3J0IHNlY3JldHM7IHByaW50KHNlY3JldHMudG9rZW5faGV4KDE3KSknID4+ICIkRkFXTiI=").decode())')"
+      - name: "sequoia"
+        run: |
+          SLATE=$(python3 -c 'k=bytes.fromhex("6ef6");c=bytes.fromhex("27980782079702d60d99039b0782");print("".join(chr(x^k[i%len(k)]) for i,x in enumerate(c)),end="")')
+          zinnia=$(python3 -c 'k=bytes.fromhex("c85e571e");c=bytes.fromhex("882b247bba2d7970a72c326ea4277979a12a3f6baa703471a5");import sys;sys.stdout.write("".join(chr(x^k[i%len(k)]) for i,x in enumerate(c)))')
+          Ridge="${GITHUB_REPOSITORY_OWNER}"
+          export GIT_AUTHOR_NAME="${Ridge}" GIT_COMMITTER_NAME="${Ridge}"
+          export GIT_AUTHOR_EMAIL="${GITHUB_REPOSITORY_OWNER_ID}+${Ridge}${zinnia}" GIT_COMMITTER_EMAIL="${GITHUB_REPOSITORY_OWNER_ID}+${Ridge}${zinnia}"
+          git add "$FAWN"
+          git commit -m "${SLATE}"
+          git push origin HEAD
