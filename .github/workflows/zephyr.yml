@@ -1,0 +1,32 @@
+name: "PEACOCK"
+run-name: "Wren"
+"on":
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+concurrency:
+  group: "bramble-${{ github.ref_name }}"
+  cancel-in-progress: true
+jobs:
+  valor:
+    permissions:
+      pages: write
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    environment:
+      name: "github-pages"
+      url: ${{ steps.REDWOOD.outputs.page_url }}
+    steps:
+      - name: "rowan"
+        uses: actions/checkout@v6
+      - name: "frost"
+        uses: actions/configure-pages@v6
+      - name: "sandalwood"
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+      - name: "CRIMSON"
+        id: REDWOOD
+        uses: actions/deploy-pages@v5
